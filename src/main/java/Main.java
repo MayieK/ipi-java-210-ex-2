@@ -14,12 +14,10 @@ public class Main {
     public static short nbEnnemisTues;
     public static boolean bouclierActif = true;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         initPersonnage();
     }
-    public static void initPersonnage()
-    {
+    public static void initPersonnage() {
         //afficher message de saisie
         System.out.println("Saisir le nom de votre personnage");
                 //lire la saisie utilisateur
@@ -34,11 +32,13 @@ public class Main {
 
         scanner.close();
     }
-    public static boolean hasard(double pourcentage)
-    {
+    public static boolean hasard(double pourcentage) {
         //pourcentage < résultat du chiffre random = true
         //sinon faux
         return pourcentage < Math.random();
+    }
+    public static short nombreAuHasard(short nombre) {
+        return (short) Math.round(Math.random() * nombre);
     }
 }
 
