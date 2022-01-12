@@ -16,29 +16,48 @@ public class Main {
 
     public static void main(String[] args) {
         initPersonnage();
+        short ennemi = 5;
+        ennemi = attaqueJoueur(ennemi);
+        System.out.println("Il reste " + ennemi + " points de vie à l'ennemi");
     }
+
     public static void initPersonnage() {
         //afficher message de saisie
         System.out.println("Saisir le nom de votre personnage");
-                //lire la saisie utilisateur
+        //lire la saisie utilisateur
         Scanner scanner = new Scanner(System.in);
-        nomPersonnage = Util.color(scanner.nextLine(), Color.GREEN);
-                // afficher le message c'est parti
-        System.out.println("OK " + nomPersonnage + " ! C'est parti !");
-                // affecter la variable ptsDeVie
+        nomPersonnage = scanner.nextLine();
+        // afficher le message c'est parti
+        System.out.println("OK " + Util.color(nomPersonnage, Color.GREEN) + " ! C'est parti !");
+        // affecter la variable ptsDeVie
         ptsDeVie = MAX_PTS_VIE;
         // affecter la variable ptsBouclier
         ptsBouclier = PTS_BOUCLIER;
-
         scanner.close();
     }
+
     public static boolean hasard(double pourcentage) {
         //pourcentage < résultat du chiffre random = true
         //sinon faux
         return pourcentage < Math.random();
     }
+
     public static short nombreAuHasard(short nombre) {
         return (short) Math.round(Math.random() * nombre);
     }
+
+    public static short attaqueJoueur(short ptsVieEnnemi) {
+        //Déterminer la force de l'attaque du joueur
+        short forceAttague = nombreAuHasard(MAX_ATTAQUE_JOUEUR);
+        //Retrancher les points de l'attaque de l'ennemi sur les points de vie de l'ennemi
+        ptsVieEnnemi -= forceAttague;
+        //Afficher les caractéristiques de l'attaque
+        System.out.println(Util.color(nomPersonnage, Color.GREEN)
+                + " attaque l'" + Util.color("ennemi", Color.YELLOW) + " ! Il lui fait perdre "
+                + Util.color(forceAttague, Color.PURPLE) + " points de dommages");
+        //Retourner le nombre de points de vie de l'ennemi après l'attaque
+        return ptsVieEnnemi;
+    }
 }
+
 
