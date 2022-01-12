@@ -18,7 +18,7 @@ public class Main {
     {
         initPersonnage();
     }
-        public static void initPersonnage()
+    public static void initPersonnage()
     {
         //afficher message de saisie
         System.out.println("Saisir le nom de votre personnage");
@@ -33,6 +33,12 @@ public class Main {
         ptsBouclier = PTS_BOUCLIER;
 
         scanner.close();
+    }
+    public static boolean hasard(double pourcentage)
+    {
+        //pourcentage < résultat du chiffre random = true
+        //sinon faux
+        return pourcentage < Math.random();
     }
 }
 
