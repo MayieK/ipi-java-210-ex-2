@@ -24,7 +24,7 @@ public class Main {
         System.out.println("Saisir le nom de votre personnage");
                 //lire la saisie utilisateur
         Scanner scanner = new Scanner(System.in);
-        nomPersonnage = scanner.nextLine();
+        nomPersonnage = Util.color(scanner.nextLine(), Color.GREEN);
                 // afficher le message c'est parti
         System.out.println("OK " + nomPersonnage + " ! C'est parti !");
                 // affecter la variable ptsDeVie
