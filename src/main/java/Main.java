@@ -17,5 +17,18 @@ Utiliser des types primitifs et préfixer toutes les déclarations par `static`
     public static final short MAX_VIE_ENNEMI = 30;
     public static final short MAX_ATTAQUE_JOUEUR = 5;
     public static final short REGENARATION_BOUCLIER_PAR_TOUR = 10;
+    /* Exercice2
+    Créer les variables suivantes dans la classe `Main` (au niveau de la classe, pas à l'intérieur de la méthode `main`).
+- `nomPersonnage` de type `String`
+- `ptsDeVie` de type `short`
+- `ptsBouclier` de type `short`
+- `nbEnnemisTues` de type `short`
+- `bouclierActif` de type `boolean` et de valeur `true`
+     */
+    public static String nomPersonnage;
+    public static short ptsDeVie;
+    public static short ptsBouclier;
+    public static short nbEnnemisTues;
+    public static boolean bouclierActif = true;
 }
 
