@@ -32,7 +32,7 @@ public class Main {
         // affecter la variable ptsDeVie
         ptsDeVie = MAX_PTS_VIE;
         // affecter la variable ptsBouclier
-        ptsBouclier = PTS_BOUCLIER;
+        ptsBouclier = bouclierActif ? PTS_BOUCLIER : 0;
         scanner.close();
     }
 
