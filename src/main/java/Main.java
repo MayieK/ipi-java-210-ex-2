@@ -13,9 +13,9 @@ public class Main{
     public static short nbEnnemisTues;
     public static boolean bouclierActif = true;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         //Début évaluation
-
+    }
         /*initPersonnage();
         affichePersonnage();
         bouclierActif = false;
@@ -23,7 +23,7 @@ public class Main{
         short ennemi = 5;
         ennemi = attaqueJoueur(ennemi);
         System.out.println("Il reste " + ennemi + " points de vie à l'ennemi");*/
-    }
+
     public static void initPersonnage(){
         //afficher message de saisie
         System.out.println("Saisir le nom de votre personnage");
