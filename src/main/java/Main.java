@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.Scanner;
 
 public class Main{
@@ -65,12 +66,12 @@ public class Main{
     }
     public static void attaqueEnnemi(){
         short dommages = nombreAuHasard(MAX_ATTAQUE_ENNEMI);
-        System.out.print("L'ennemi attaque " + nomPersonnage + " !");
+        System.out.print("L'" + Util.color("ennemi", Color.YELLOW) + " attaque " + Util.color(nomPersonnage, Color.GREEN) + " !");
         System.out.print("Il lui fait" + dommages + " points de dommages !");
         if(bouclierActif && ptsBouclier > 0) {
             if (ptsBouclier >= dommages) {
                 ptsBouclier -= dommages;
-                System.out.print("Le bouclier perd" + dommages + " points.");
+                System.out.print("Le bouclier perd" + Util.color(dommages, Color.BLUE) + " points.");
                 dommages = 0;
             } else{
                 dommages -= ptsBouclier;
@@ -79,7 +80,7 @@ public class Main{
         }
         if(dommages > 0){
             ptsDeVie -= dommages;
-            System.out.print(nomPersonnage + " perd" + dommages + " points de vie !");
+            System.out.print(nomPersonnage + " perd" + Util.color(dommages, Color.BLUE) + " points de vie !");
         }
     }
 
