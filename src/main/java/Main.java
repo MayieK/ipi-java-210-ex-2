@@ -82,7 +82,7 @@ public class Main{
             System.out.print(nomPersonnage + " perd" + Util.color(dommages, Color.BLUE) + " points de vie !");
         }
     }
-    public static short[] initEnnemi(){
+    public static short[] initEnnemis(){
         System.out.println("Combien d'ennemi voulez-vous combattre ?");
         Scanner scanner = new Scanner(System.in);
         int nbEnnemis = scanner.nextInt();
@@ -93,7 +93,22 @@ public class Main{
         }
         return ennemis;
     }
-
+    public static short attaque(short ennemi, boolean joueurAttaque){
+        //Vérifier si l'un des 2 combattants est mort => si oui, on ne fait aucune attaque
+        if(ptsDeVie <= 0 || ennemi <= 0){
+            return ennemi;
+        }
+        //On va faire attaquer le joueur si c'est à lui d'attaquer
+        if(joueurAttaque){
+            ennemi = attaqueJoueur(ennemi);
+        }
+        //Sinon, on fait attaquer l'ennemi
+        else {
+            attaqueEnnemi();
+        }
+        //On renvoie le nombre de points de l'ennemi
+        return ennemi;
+    }
 
 }
 
