@@ -82,6 +82,18 @@ public class Main{
             System.out.print(nomPersonnage + " perd" + Util.color(dommages, Color.BLUE) + " points de vie !");
         }
     }
+    public static short[] initEnnemi(){
+        System.out.println("Combien d'ennemi voulez-vous combattre ?");
+        Scanner scanner = new Scanner(System.in);
+        int nbEnnemis = scanner.nextInt();
+        short[]ennemis = new short[nbEnnemis];
+        for(int i = 0; i < nbEnnemis; i++){
+            ennemis[i] = nombreAuHasard(MAX_VIE_ENNEMI);
+            System.out.println("Ennemi numéro " + (i+1) + ": " + ennemis[i]);
+        }
+        return ennemis;
+    }
+
 
 }
 
