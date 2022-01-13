@@ -14,13 +14,15 @@ public class Main{
     public static boolean bouclierActif = true;
 
     public static void main(String[] args){
-        initPersonnage();
+        //Début évaluation
+
+        /*initPersonnage();
         affichePersonnage();
         bouclierActif = false;
         affichePersonnage();
         short ennemi = 5;
         ennemi = attaqueJoueur(ennemi);
-        System.out.println("Il reste " + ennemi + " points de vie à l'ennemi");
+        System.out.println("Il reste " + ennemi + " points de vie à l'ennemi");*/
     }
     public static void initPersonnage(){
         //afficher message de saisie
