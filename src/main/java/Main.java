@@ -67,8 +67,19 @@ public class Main{
         short dommages = nombreAuHasard(MAX_ATTAQUE_ENNEMI);
         System.out.print("L'ennemi attaque " + nomPersonnage + " !");
         System.out.print("Il lui fait" + dommages + " points de dommages !");
-        ptsDeVie -= dommages;
-        System.out.print(nomPersonnage + " perd" + dommages + " points de vie !");
+        if(bouclierActif && ptsBouclier > 0) {
+            if (ptsBouclier >= dommages) {
+                ptsBouclier -= dommages;
+                System.out.print("Le bouclier perd" + dommages + " points.");
+                dommages = 0;
+            } else {
+                dommages -= ptsBouclier;
+                ptsBouclier = 0;
+            }
+        }
+        if(dommages > 0){
+            ptsDeVie -= dommages;
+            System.out.print(nomPersonnage + " perd" + dommages + " points de vie !");
         }
     }
 
