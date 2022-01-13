@@ -15,6 +15,16 @@ public class Main{
 
     public static void main(String[] args) {
         //Début évaluation
+        //Initialiser le personnage du joueur
+        initPersonnage();
+        //Initialiser les ennemis
+         = initEnnemis();
+
+        //Combat avec le 1er ennemi, celui qui commence est choisi de façon aléatoire
+        //Affichage de l'état des joueurs avant chaque tour
+        //Comptabiliser le nombre d'ennemis tués par le joueur
+        //Si bouclier actif, il peut partiellement se regénérer avant l'ennemi suivant mais ne peut dépasser le nb max du bouclier
+        //Pour passer à l'ennemi suivant, saisir la lettre S
     }
         /*initPersonnage();
         affichePersonnage();
@@ -36,7 +46,6 @@ public class Main{
         ptsDeVie = MAX_PTS_VIE;
         // affecter la variable ptsBouclier
         ptsBouclier = bouclierActif ? PTS_BOUCLIER : 0;
-        scanner.close();
     }
     public static void affichePersonnage(){
         System.out.print(Util.color(nomPersonnage, Color.GREEN) + " (" + Util.color(ptsDeVie, Color.RED));
@@ -88,6 +97,7 @@ public class Main{
         System.out.println("Combien d'ennemi voulez-vous combattre ?");
         Scanner scanner = new Scanner(System.in);
         int nbEnnemis = scanner.nextInt();
+        System.out.println("Génération des ennemis...");
         short[]ennemis = new short[nbEnnemis];
         for(int i = 0; i < nbEnnemis; i++){
             ennemis[i] = nombreAuHasard(MAX_VIE_ENNEMI);
