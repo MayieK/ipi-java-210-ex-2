@@ -7,7 +7,6 @@ public class Main {
     public static final short MAX_VIE_ENNEMI = 30;
     public static final short MAX_ATTAQUE_JOUEUR = 5;
     public static final short REGENARATION_BOUCLIER_PAR_TOUR = 10;
-
     public static String nomPersonnage;
     public static short ptsDeVie;
     public static short ptsBouclier;
@@ -16,11 +15,13 @@ public class Main {
 
     public static void main(String[] args) {
         initPersonnage();
+        affichePersonnage();
+        bouclierActif = false;
+        affichePersonnage();
         short ennemi = 5;
         ennemi = attaqueJoueur(ennemi);
         System.out.println("Il reste " + ennemi + " points de vie à l'ennemi");
     }
-
     public static void initPersonnage() {
         //afficher message de saisie
         System.out.println("Saisir le nom de votre personnage");
@@ -35,17 +36,21 @@ public class Main {
         ptsBouclier = bouclierActif ? PTS_BOUCLIER : 0;
         scanner.close();
     }
-
+    public static void affichePersonnage() {
+        System.out.print(Util.color(nomPersonnage, Color.GREEN) + " (" + Util.color(ptsDeVie, Color.RED));
+        if(bouclierActif) {
+            System.out.print(" " + Util.color(ptsBouclier, Color.BLUE));
+            System.out.print(")");
+        }
+    }
     public static boolean hasard(double pourcentage) {
         //pourcentage < résultat du chiffre random = true
         //sinon faux
         return pourcentage < Math.random();
     }
-
     public static short nombreAuHasard(short nombre) {
         return (short) Math.round(Math.random() * nombre);
     }
-
     public static short attaqueJoueur(short ptsVieEnnemi) {
         //Déterminer la force de l'attaque du joueur
         short forceAttague = nombreAuHasard(MAX_ATTAQUE_JOUEUR);
@@ -58,6 +63,7 @@ public class Main {
         //Retourner le nombre de points de vie de l'ennemi après l'attaque
         return ptsVieEnnemi;
     }
+
 }
 
 
