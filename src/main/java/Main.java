@@ -18,7 +18,7 @@ public class Main{
         //Initialiser le personnage du joueur
         initPersonnage();
         //Initialiser les ennemis
-         = initEnnemis();
+         initEnnemis();
 
         //Combat avec le 1er ennemi, celui qui commence est choisi de façon aléatoire
         //Affichage de l'état des joueurs avant chaque tour
@@ -93,7 +93,7 @@ public class Main{
             System.out.print(nomPersonnage + " perd" + Util.color(dommages, Color.BLUE) + " points de vie !");
         }
     }
-    public static short[] initEnnemis(){
+    public static short[]initEnnemis(){
         System.out.println("Combien d'ennemi voulez-vous combattre ?");
         Scanner scanner = new Scanner(System.in);
         int nbEnnemis = scanner.nextInt();
