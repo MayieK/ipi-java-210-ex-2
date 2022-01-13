@@ -72,7 +72,7 @@ public class Main{
                 ptsBouclier -= dommages;
                 System.out.print("Le bouclier perd" + dommages + " points.");
                 dommages = 0;
-            } else {
+            } else{
                 dommages -= ptsBouclier;
                 ptsBouclier = 0;
             }
