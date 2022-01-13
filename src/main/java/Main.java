@@ -64,10 +64,11 @@ public class Main{
         return ptsVieEnnemi;
     }
     public static void attaqueEnnemi(){
-        short forceDommage = nombreAuHasard(MAX_ATTAQUE_ENNEMI);
-        if(ptsBouclier >= forceDommage){
-            ptsBouclier -= forceDommage;
-            else(ptsDeVie -= forceDommage);
+        short dommages = nombreAuHasard(MAX_ATTAQUE_ENNEMI);
+        System.out.print("L'ennemi attaque " + nomPersonnage + " !");
+        System.out.print("Il lui fait" + dommages + " points de dommages !");
+        ptsDeVie -= dommages;
+        System.out.print(nomPersonnage + " perd" + dommages + " points de vie !");
         }
     }
 
