@@ -109,7 +109,6 @@ public class Main{
         //On renvoie le nombre de points de l'ennemi
         return ennemi;
     }
-
 }
 
 
