@@ -12,23 +12,25 @@ public class Main{
     public static short ptsBouclier;
     public static short nbEnnemisTues;
     public static boolean bouclierActif = true;
+    public static short ptsDeVieDepartEnnemis;
 
     public static void main(String[] args) {
         //Début évaluation
         //Initialiser le personnage du joueur
         initPersonnage();
         //Initialiser les ennemis
-         initEnnemis();
-
+        initEnnemis();
         //Combat avec le 1er ennemi, celui qui commence est choisi de façon aléatoire
+        System.out.println("Combat avec un ennemi possédant " + ptsDeVieDepartEnnemis + " points de vie !" );
         //Affichage de l'état des joueurs avant chaque tour
+        affichePersonnage();
+        System.out.println(" vs ennenmi " + " (" + ptsDeVieDepartEnnemis + ")");
         //Comptabiliser le nombre d'ennemis tués par le joueur
         //Si bouclier actif, il peut partiellement se regénérer avant l'ennemi suivant mais ne peut dépasser le nb max du bouclier
         //Pour passer à l'ennemi suivant, saisir la lettre S
     }
-        /*initPersonnage();
-        affichePersonnage();
-        bouclierActif = false;
+
+        /* bouclierActif = false;
         affichePersonnage();
         short ennemi = 5;
         ennemi = attaqueJoueur(ennemi);
@@ -101,9 +103,10 @@ public class Main{
         short[]ennemis = new short[nbEnnemis];
         for(int i = 0; i < nbEnnemis; i++){
             ennemis[i] = nombreAuHasard(MAX_VIE_ENNEMI);
+            ptsDeVieDepartEnnemis = ennemis[i];
             System.out.println("Ennemi numéro " + (i+1) + ": " + ennemis[i]);
         }
-        return ennemis;
+                return ennemis;
     }
     public static short attaque(short ennemi, boolean joueurAttaque){
         //Vérifier si l'un des 2 combattants est mort => si oui, on ne fait aucune attaque
