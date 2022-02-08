@@ -8,30 +8,66 @@ public class Main {
     public static final short MAX_ATTAQUE_JOUEUR = 5;
     public static final short REGENARATION_BOUCLIER_PAR_TOUR = 10;
     public static String nomPersonnage;
-    public static short ptsDeVie;
-    public static short ptsBouclier;
-    public static boolean bouclierActif = true;
-    public static boolean hasard;
-    public static short vieEnnemis;
+    public static short ptsDeVieJoueur;
+    public static short ptsVieEnnemis;
+    public static short ptsBouclierJoueur;
+    public static short nbEnnemisTues;
+    public static boolean bouclierActifJoueur = true;
+    public static short attaque;
+    public static String continuerPartie;
+    public static short nbEnnemis;
+
 
     public static void main(String[] args) {
-        //Début évaluation
+        //************ Début évaluation **************
         //Initialiser le personnage du joueur
         initPersonnage();
-        //Initialiser les ennemis
+        //Initialiser les "ennemis", tableau "ennemis" avec "nbEnnemis" et nb vie ennemis => ptsVieEnnemi
         initEnnemis();
-        //Combat avec le 1er ennemi, celui qui commence est choisi de façon aléatoire
-        System.out.println("Combat avec un ennemi possédant "
-                + vieEnnemis + " points de vie !");
+        //Initialiser les combats => tant que ennemis il y a des combats
+        // Combat avec le 1er ennemi
+        for (short [] ptsVieEnnemis; nbEnnemis > 0;) {
+            boolean hasard;
+            System.out.println("Combat avec un ennemi possédant "
+                    + ptsVieEnnemis + " points de vie !");
+        }
         //Affichage de l'état des joueurs avant chaque tour
         affichePersonnage();
         System.out.println(" vs ennemi ("
-                + vieEnnemis
+                + ptsVieEnnemis
                 + ")");
-
+        //Combat à mort
+        short attaque;
         //Comptabiliser le nombre d'ennemis tués par le joueur
-        //Si bouclier actif, il peut partiellement se regénérer avant l'ennemi suivant mais ne peut dépasser le nb max du bouclier
+        if (ptsVieEnnemis == 0) {
+            nbEnnemisTues = 1;
+            nbEnnemisTues +=1;
+        }
         //Pour passer à l'ennemi suivant, saisir la lettre S
+        System.out.println("Saisisser S pour passer au combat suivant ou n'importe quoi d'autre pour fuir...");
+        Scanner scanner = new Scanner(System.in);
+        continuerPartie = scanner.nextLine();
+        if (continuerPartie == "S") {
+            //Si bouclier actif, il peut partiellement se regénérer avant l'ennemi suivant mais ne peut dépasser le nb max du bouclier
+            if (bouclierActifJoueur == true) {
+                ptsBouclierJoueur = ptsBouclierJoueur + REGENARATION_BOUCLIER_PAR_TOUR;
+                if (nbEnnemisTues != nbEnnemis) {
+                    //Affichage de l'état des joueurs avant chaque tour
+                    affichePersonnage();
+                    System.out.println(" vs ennemi ("
+                            + ptsVieEnnemis
+                            + ")");
+                    //Combat à mort
+                    attaque;
+                } else {
+                    System.out.println("Vous avez tué tous les ennemis !");
+                }
+            }
+        } else {
+            System.out.println("Vous avez tué"
+                + nbEnnemisTues
+                + " ennemi(s) mais vous êtes parti lâchement avant la fin...");
+        }
     }
 
     public static void initPersonnage() {
@@ -45,17 +81,17 @@ public class Main {
             + Util.color(nomPersonnage, Color.GREEN)
             + " ! C'est parti !");
         // affecter la variable ptsDeVie
-        ptsDeVie = MAX_PTS_VIE;
+        ptsDeVieJoueur = MAX_PTS_VIE;
         // affecter la variable ptsBouclier
-        ptsBouclier = bouclierActif ? PTS_BOUCLIER : 0;
+        ptsBouclierJoueur = bouclierActifJoueur ? PTS_BOUCLIER : 0;
     }
 
     public static void affichePersonnage() {
         System.out.print(Util.color(nomPersonnage, Color.GREEN)
-                + " (" + Util.color(ptsDeVie, Color.RED));
-        if (bouclierActif) {
+                + " (" + Util.color(ptsDeVieJoueur, Color.RED));
+        if (bouclierActifJoueur) {
             System.out.print(" "
-                    + Util.color(ptsBouclier, Color.BLUE)
+                    + Util.color(ptsBouclierJoueur, Color.BLUE)
                     + ")");
         }
     }
@@ -70,11 +106,27 @@ public class Main {
         return (short) Math.round(Math.random() * nombre);
     }
 
-    public static short attaqueJoueur(short ptsVieEnnemi) {
+    public static short attaque (short ptsVieEnnemis, boolean joueurAttaque){
+        //Vérifier si l'un des 2 combattants est morts => si oui, on ne fait aucune attaque
+        if (ptsDeVieJoueur <= 0 || ptsVieEnnemis <= 0) {
+            return ptsVieEnnemis;
+        } else if (hasard(0.5)) {
+            //On va faire attaquer le joueur si c'est à lui d'attaquer
+            if(joueurAttaque){
+                ptsVieEnnemis = attaqueJoueur(ptsVieEnnemis);
+            } else {
+                attaqueEnnemi();
+            }
+            return ptsVieEnnemis;
+        }
+        //On renvoie le nombre de points de l'ennemi
+        return ptsVieEnnemis;
+    }
+    public static short attaqueJoueur(short ptsVieEnnemis) {
         //Déterminer la force de l'attaque du joueur
         short forceAttaque = nombreAuHasard(MAX_ATTAQUE_JOUEUR);
         //Retrancher les points de l'attaque de l'ennemi sur les points de vie de l'ennemi
-        ptsVieEnnemi -= forceAttaque;
+        ptsVieEnnemis -= forceAttaque;
         //Afficher les caractéristiques de l'attaque
         System.out.println(Util.color(nomPersonnage, Color.GREEN)
                 + " attaque l'"
@@ -83,73 +135,54 @@ public class Main {
                 + Util.color(forceAttaque, Color.PURPLE)
                 + " points de dommages");
         //Retourner le nombre de points de vie de l'ennemi après l'attaque
-        return ptsVieEnnemi;
+        return ptsVieEnnemis;
     }
 
     public static void attaqueEnnemi() {
-        short dommages = nombreAuHasard(MAX_ATTAQUE_ENNEMI);
+        short ptsDommagesToJoueur = nombreAuHasard(MAX_ATTAQUE_ENNEMI);
         System.out.print("L'"
                 + Util.color("ennemi", Color.YELLOW)
                 + " attaque "
                 + Util.color(nomPersonnage, Color.GREEN)
                 + " !");
         System.out.print("Il lui fait "
-                + dommages
+                + ptsDommagesToJoueur
                 + " points de dommages !");
-        if (bouclierActif && ptsBouclier > 0) {
-            if (ptsBouclier >= dommages) {
-                ptsBouclier -= dommages;
+        if (bouclierActifJoueur && ptsBouclierJoueur > 0) {
+            if (ptsBouclierJoueur >= ptsDommagesToJoueur) {
+                ptsBouclierJoueur -= ptsDommagesToJoueur;
                 System.out.print("Le bouclier perd "
-                        + Util.color(dommages, Color.BLUE)
+                        + Util.color(ptsDommagesToJoueur, Color.BLUE)
                         + " points.");
-                dommages = 0;
+                ptsDommagesToJoueur = 0;
             } else {
-                dommages -= ptsBouclier;
-                ptsBouclier = 0;
+                ptsDommagesToJoueur -= ptsBouclierJoueur;
+                ptsBouclierJoueur = 0;
             }
         }
-        if (dommages > 0) {
-            ptsDeVie -= dommages;
+        if (ptsDommagesToJoueur > 0) {
+            ptsDeVieJoueur -= ptsDommagesToJoueur;
             System.out.print(nomPersonnage
                     + " perd "
-                    + Util.color(dommages, Color.BLUE)
+                    + Util.color(ptsDommagesToJoueur, Color.BLUE)
                     + " points de vie !");
         }
     }
 
-    public static short initEnnemis() {
+    public static short [] initEnnemis() {
         System.out.println("Combien d'ennemi voulez-vous combattre ?");
         Scanner scanner = new Scanner(System.in);
         int nbEnnemis = scanner.nextInt();
         System.out.println("Génération des ennemis...");
-        short[] ennemis = new short[nbEnnemis];
+        short [] ptsVieEnnemis = new short [nbEnnemis];
         for (int i = 0; i < nbEnnemis; i++) {
-            ennemis[i] = nombreAuHasard(MAX_VIE_ENNEMI);
+            ptsVieEnnemis [i] = nombreAuHasard(MAX_VIE_ENNEMI);
             System.out.println("Ennemi numéro "
                 + (i + 1)
                 + " : "
-                + ennemis[i]);
-            vieEnnemis = ennemis[i];
+                + ptsVieEnnemis [i]);
         }
-        return vieEnnemis;
-
-    }
-
-    public static short attaque (short ennemis, boolean joueurAttaque){
-        //Vérifier si l'un des 2 combattants est mort => si oui, on ne fait aucune attaque
-        if(ptsDeVie <= 0 || ennemis <= 0){
-            return ennemis;
-        }
-        //On va faire attaquer le joueur si c'est à lui d'attaquer
-        if(joueurAttaque){
-            ennemis = attaqueJoueur(ennemis);
-        }
-        //Sinon, on fait attaquer l'ennemi
-        else {
-            attaqueEnnemi();
-        }
-        //On renvoie le nombre de points de l'ennemi
-        return ennemis;
+        return ptsVieEnnemis;
     }
 }
 
